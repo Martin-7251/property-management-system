@@ -1,0 +1,58 @@
+# =============================================================================
+# Python 3.13 Compatible Requirements
+# =============================================================================
+
+# Core FastAPI and ASGI server - Updated versions
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Data validation - Updated Pydantic v2 (now compatible with Python 3.13)
+pydantic==2.6.1
+pydantic-settings==2.1.0
+email-validator==2.1.0.post1
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.2
+
+# Environment variables
+python-dotenv==1.0.1
+
+# HTTP client
+requests==2.31.0
+httpx==0.26.0
+
+# SMS
+africastalking==1.2.7
+
+# Email
+sendgrid==6.11.0
+
+# Utilities
+python-dateutil==2.8.2
+apscheduler==3.10.4
+python-json-logger==2.0.7
+
+# Testing
+pytest==8.0.0
+pytest-asyncio==0.23.4
+httpx==0.26.0
+
+# Development tools
+black==24.1.1
+flake8==7.0.0
+ipython==8.20.0
+
+# For bulk uploads - CSV and Excel support
+pandas==2.1.4
+openpyxl==3.1.2
+
+reportlab==4.0.9      # PDF generation
+xlsxwriter==3.1.9     # Excel generation

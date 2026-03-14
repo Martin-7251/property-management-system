@@ -1,0 +1,316 @@
+# 🏢 Property Management System
+
+A full-stack property management system built with FastAPI (Python) and React (TypeScript) for managing rental properties, tenants, invoices, and M-Pesa payments.
+
+
+## ✨ Features
+
+### 🏠 Property Management
+- ✅ Create and manage multiple properties
+- ✅ Track units with bedrooms, bathrooms, and rent amounts
+- ✅ Bulk upload properties and units via CSV/Excel
+
+### 👥 Tenant Management
+- ✅ Register tenants with complete details
+- ✅ Track lease information and move-in/move-out dates
+- ✅ Bulk tenant registration
+- ✅ Tenant status management (Active, Pending, Moved Out)
+
+### 💰 Financial Management
+- ✅ Automated monthly invoice generation
+- ✅ M-Pesa payment integration
+- ✅ Automatic payment matching to invoices
+- ✅ Security deposit tracking
+- ✅ Payment history and receipts
+
+### 📊 Reporting & Analytics
+- ✅ Dashboard with key metrics
+- ✅ Collection rates and arrears tracking
+- ✅ Export reports (PDF & Excel)
+- ✅ Customizable date range reports
+- ✅ Property performance analytics
+
+### 🔄 Automation
+- ✅ Automatic monthly invoice generation (cron job)
+- ✅ M-Pesa C2B payment webhook
+- ✅ Automated payment matching
+- ✅ Payment simulator for testing
+
+### 📤 Bulk Operations
+- ✅ CSV/Excel template downloads
+- ✅ Bulk import properties, units, and tenants
+- ✅ Error reporting with row numbers
+- ✅ Duplicate prevention
+
+## 🛠️ Tech Stack
+
+### Backend
+- **Framework:** FastAPI (Python 3.11+)
+- **Database:** PostgreSQL with SQLAlchemy ORM
+- **Authentication:** JWT (JSON Web Tokens)
+- **Payment:** M-Pesa Daraja API
+- **File Processing:** Pandas, OpenPyXL
+- **Export:** ReportLab (PDF), XlsxWriter (Excel)
+
+### Frontend
+- **Framework:** React 18 with TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Routing:** React Router v6
+- **State Management:** Zustand
+- **HTTP Client:** Axios
+- **Notifications:** React Hot Toast
+
+## 📋 Prerequisites
+
+- Python 3.11 or higher
+- Node.js 18 or higher
+- PostgreSQL 14 or higher
+- Git
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Martin-7251/property-management-system.git
+cd property-management-system
+```
+
+### 2. Backend Setup
+
+```bash
+# Navigate to backend directory
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows (Git Bash):
+source venv/Scripts/activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create .env file
+cp .env.example .env
+
+# Edit .env file with your configuration
+# IMPORTANT: Update DATABASE_URL, SECRET_KEY, and M-Pesa credentials
+nano .env  # or use your preferred editor
+
+# Initialize database
+python -m app.db.init_db
+
+# Run the server
+python run.py
+```
+
+The backend API will be available at `http://localhost:8000`
+
+### 3. Frontend Setup
+
+```bash
+# Open new terminal and navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Create .env file
+cp .env.example .env
+
+# Edit .env file if needed (default should work for local development)
+nano .env  # or use your preferred editor
+
+# Start development server
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+## 🔐 Security Configuration
+
+### Important: Before Deploying to Production
+
+1. **Change the SECRET_KEY** in backend `.env`:
+   ```bash
+   # Generate a secure secret key
+   python -c "import secrets; print(secrets.token_urlsafe(32))"
+   ```
+
+2. **Update M-Pesa credentials** with production values
+
+3. **Set DEBUG=False** in backend `.env`
+
+4. **Configure ALLOWED_HOSTS** and **CORS_ORIGINS** properly
+
+5. **Never commit `.env` files** - they're already in `.gitignore`
+
+## 📊 Database Setup
+
+### PostgreSQL Database Creation
+
+```bash
+# Connect to PostgreSQL
+psql -U postgres
+
+# Create database
+CREATE DATABASE property_management;
+
+# Create user (optional)
+CREATE USER propmanager WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE property_management TO propmanager;
+
+# Exit psql
+\q
+```
+
+### Database Migrations
+
+```bash
+cd backend
+python -m app.db.init_db
+```
+
+## 🧪 Testing
+
+### Backend Tests
+```bash
+cd backend
+pytest
+```
+
+### Frontend Tests
+```bash
+cd frontend
+npm run test
+```
+
+## 📱 M-Pesa Integration
+
+### Development (Sandbox)
+1. Register on [Safaricom Daraja Portal](https://developer.safaricom.co.ke/)
+2. Create a sandbox app
+3. Get Consumer Key and Consumer Secret
+4. Configure in `.env` file
+
+### Production
+1. Go to production mode on Daraja Portal
+2. Update credentials in `.env`
+3. Set `MPESA_ENVIRONMENT=production`
+4. Configure callback URL with your domain
+
+## 📖 API Documentation
+
+Once the backend is running, visit:
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+## 🎯 Default Login
+
+After running `init_db.py`, you can login with:
+- **Email:** test@example.com
+- **Password:** password123
+
+**⚠️ Change this immediately in production!**
+
+## 📁 Project Structure
+
+```
+property-management-system/
+├── backend/
+│   ├── app/
+│   │   ├── api/          # API endpoints
+│   │   ├── models/       # Database models
+│   │   ├── schemas/      # Pydantic schemas
+│   │   ├── services/     # Business logic
+│   │   ├── utils/        # Utilities
+│   │   └── db/           # Database configuration
+│   ├── requirements.txt
+│   ├── .env.example
+│   └── run.py
+├── frontend/
+│   ├── src/
+│   │   ├── components/   # React components
+│   │   ├── pages/        # Page components
+│   │   ├── services/     # API services
+│   │   ├── store/        # State management
+│   │   └── utils/        # Utilities
+│   ├── package.json
+│   └── .env.example
+└── README.md
+```
+
+## 🔄 Bulk Upload Templates
+
+Download CSV templates from the Bulk Upload page:
+
+### Properties Template
+```csv
+name,address,type,total_units
+Sunset Apartments,123 Main St,apartment,10
+```
+
+### Units Template
+```csv
+property_name,unit_number,bedrooms,bathrooms,rent_amount,status
+Sunset Apartments,A101,2,1,25000,vacant
+```
+
+### Tenants Template
+```csv
+property_name,unit_number,full_name,phone,email,id_number,base_rent,security_deposit_amount,move_in_date
+Sunset Apartments,A101,John Doe,+254722123456,john@email.com,12345678,25000,25000,2024-01-01
+```
+
+## 🚀 Deployment
+
+### Backend (e.g., Railway, Render, DigitalOcean)
+
+1. Set environment variables
+2. Run database migrations
+3. Deploy using Gunicorn:
+   ```bash
+   gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker
+   ```
+
+### Frontend (e.g., Vercel, Netlify, Cloudflare Pages)
+
+1. Build the project:
+   ```bash
+   npm run build
+   ```
+2. Deploy the `dist` folder
+
+### Environment Variables
+
+Make sure to set all required environment variables in your deployment platform.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👨‍💻 Author
+
+**Martin**
+- GitHub: [@Martin-7251](https://github.com/Martin-7251)
+
+## 🙏 Acknowledgments
+
+- FastAPI for the amazing backend framework
+- React team for the frontend framework
+- Safaricom for M-Pesa API
+- All contributors and supporters
